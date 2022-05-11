@@ -15,7 +15,7 @@ var (
 	DB *mongo.Client
 )
 
-func Controller(req *chc.Request, res chc.Response) *chc.Response {
+func Controller(req *chc.Request, res *chc.Response) *chc.Response {
 	databases, err := DB.ListDatabaseNames(context.Background(), bson.M{})
 	if err != nil {
 		panic(err)
@@ -30,7 +30,7 @@ func Controller(req *chc.Request, res chc.Response) *chc.Response {
 	res.SetHeader("Content-Type", "application/json")
 	res.SetStringBody(`{"databases":` + string(jsonData) + `}`)
 
-	return &res
+	return res
 }
 
 func main() {

@@ -2,31 +2,31 @@ package main
 
 import "github.com/cookie-for-pres/chc"
 
-func LoginController(req *chc.Request, res chc.Response) *chc.Response {
+func LoginController(req *chc.Request, res *chc.Response) *chc.Response {
 	if req.Method == "GET" {
 		err := res.LoadHtmlFile("public/login.html")
 		if err != nil {
 			res.SetStatusCode(500)
 			res.SetStringBody(err.Error())
 
-			return &res
+			return res
 		}
 
-		return &res
+		return res
 	} else {
 		formData, err := req.FormDataBody()
 		if err != nil {
 			res.SetStatusCode(500)
 			res.SetStringBody(err.Error())
 
-			return &res
+			return res
 		}
 
 		if formData == nil {
 			res.SetStatusCode(500)
 			res.SetStringBody("No form data")
 
-			return &res
+			return res
 		}
 
 		if formData["username"] != "cookie" || formData["password"] != "cookie" {
@@ -38,11 +38,11 @@ func LoginController(req *chc.Request, res chc.Response) *chc.Response {
 		res.SetCookie("loggedin", "true")
 		res.SetRedirect("/dashboard")
 
-		return &res
+		return res
 	}
 }
 
-func DashboardController(req *chc.Request, res chc.Response) *chc.Response {
+func DashboardController(req *chc.Request, res *chc.Response) *chc.Response {
 	if req.Cookies["loggedin"] != "true" {
 		res.SetStatusCode(500)
 		res.SetStringBody("Not logged in")
@@ -51,10 +51,10 @@ func DashboardController(req *chc.Request, res chc.Response) *chc.Response {
 		res.LoadHtmlFile("public/dashboard.html")
 	}
 
-	return &res
+	return res
 }
 
-func DuckController(req *chc.Request, res chc.Response) *chc.Response {
+func DuckController(req *chc.Request, res *chc.Response) *chc.Response {
 	if req.Method == "GET" {
 		res.SetStatusCode(200)
 		err := res.LoadImageFile("public/ducks.png")
@@ -63,7 +63,7 @@ func DuckController(req *chc.Request, res chc.Response) *chc.Response {
 			res.SetStringBody(err.Error())
 		}
 
-		return &res
+		return res
 	} else {
 		res.SetStatusCode(200)
 		res.SetHeader("Content-Disposition", "attachment; filename=ducks.png")
@@ -76,7 +76,7 @@ func DuckController(req *chc.Request, res chc.Response) *chc.Response {
 
 		res.SetStringBody(string(imagesBytes))
 
-		return &res
+		return res
 	}
 }
 

@@ -6,7 +6,7 @@ import (
 	"github.com/cookie-for-pres/chc"
 )
 
-func controller(req *chc.Request, res chc.Response) *chc.Response {
+func controller(req *chc.Request, res *chc.Response) *chc.Response {
 	res.SetStatusCode(200)
 	res.SetHeader("Content-Type", "application/json")
 
@@ -17,17 +17,17 @@ func controller(req *chc.Request, res chc.Response) *chc.Response {
 
 	res.SetJsonObjectBody(map[string]interface{}{"headers": headers})
 
-	return &res
+	return res
 }
 
-func middleware1(response chc.Response) (*chc.Response, bool) {
+func middleware1(response *chc.Response) (*chc.Response, bool) {
 	response.SetHeader("X-Test", time.Now().String())
-	return &response, true
+	return response, true
 }
 
-func middleware2(response chc.Response) (*chc.Response, bool) {
+func middleware2(response *chc.Response) (*chc.Response, bool) {
 	response.SetHeader("X-Test-2", time.Now().String())
-	return &response, true
+	return response, true
 }
 
 func main() {
