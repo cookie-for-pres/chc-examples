@@ -10,12 +10,12 @@ func controller(req *chc.Request, res *chc.Response) *chc.Response {
 	res.SetStatusCode(200)
 	res.SetHeader("Content-Type", "application/json")
 
-	headers := map[string]string{}
+	headers := make(map[any]any)
 	for k, v := range res.Headers {
 		headers[k] = v
 	}
 
-	res.SetJsonObjectBody(map[string]interface{}{"headers": headers})
+	res.SetJsonObjectBody(map[any]any{"headers": headers})
 
 	return res
 }

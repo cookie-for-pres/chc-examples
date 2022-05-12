@@ -10,7 +10,7 @@ func main() {
 		Path:    "/",
 		Methods: []string{"GET"},
 		Controller: func(req *chc.Request, res *chc.Response) *chc.Response {
-			res.SetStatusCode(200).SetStatusCode(200).SetJsonObjectBody(map[string]interface{}{
+			res.SetStatusCode(200).SetJsonObjectBody(map[any]any{
 				"message": "Hello World",
 			})
 
